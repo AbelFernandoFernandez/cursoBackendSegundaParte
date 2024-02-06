@@ -26,7 +26,7 @@ const initializePassport = () => {
             const cartNewUser = await cartModel.create({})
             const newUser = {
                 firstName, lastName, email, age, password:crateHash(password), cart: cartNewUser._id,
-                role: email === "adminCoder@coder.com" ? "admin" : "user"
+                role: email === "abel@mail.com" ? "admin" : "user"
 
             }
 
@@ -54,8 +54,8 @@ const initializePassport = () => {
     }))
 
     passport.use('github', new GitHubStrategy({
-        clientID: process.env.CLIENTID,
-        clientSecret: process.env.CLIENTSECRET,
+        clientID: process.env.clientID,
+        clientSecret: process.env.clientSecret,
         callbackURL: 'http://localhost:8080/api/sessions/githubcallback'
     }, async (accessToken, refreshToken, profile, done) => {
         console.log(profile);

@@ -6,15 +6,10 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import passport from "passport";
 import initializePassport from './config/passport.config.js';
-import productsRouter from './routers/products.router.js';
-import cartsRouter from './routers/cart.router.js';
-import sessionRouter from './routers/session.router.js';
-import sesssionViewRouter from './routers/session.view.router.js';
-import viewsRouter from './routers/view.router.js';
-import chatRouter from './routers/chat.router.js';
-import { __dirname, passportCall } from './utils.js';
 import messageModel from "./dao/models/message.model.js";
+import { __dirname } from "./utils.js";
 import dotenv from "dotenv";
+import appRouter from "./routers/index.js";
 
 dotenv.config()
 
@@ -52,14 +47,8 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json());
 app.use(express.static(__dirname+"/public"));
-app.use('/', sesssionViewRouter);
-app.use('/api/products', productsRouter);
-app.use('/api/cart', cartsRouter);
-app.use('/api/sessions', sessionRouter);
-app.use('/session', sessionRouter);
-app.use('/products', passportCall('jwt'), viewsRouter);
-app.use('/carts', viewsRouter);
-app.use('/chat', chatRouter);
+
+app.use(appRouter)
 
 try{
     await mongoose.connect(MONGO_URI,{
