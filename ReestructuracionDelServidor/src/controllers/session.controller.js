@@ -20,7 +20,7 @@ export const logoutController = (req, res) => {
     res.clearCookie(JWT_COOKIE_NAME).redirect('/');
 }
 
-export const githubController = (reqe, res) => {}
+export const githubController = (req, res) => {}
 
 export const githubCallBackController = async( req, res) => {
     console.log('Callback: ', req.user )
